@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Security Scanner</title>
+    <link rel="stylesheet" href="../static/css/index.css">
+    <script src="../static/js/index.js" defer></script>
+    <link rel="stylesheet" href="../static/css/global.css">
+    <script src="../static/js/theme.js"></script>
+    
+</head>
+
+<body>
+
+    <!-- NAVBAR -->
+    <div class="navbar">
+        <h1>WebSec Scanner</h1>
+        <div>
+            <!-- <span id="userDisplay" style="margin-right: 15px; font-weight: bold;"></span> -->
+            <span id="userDisplay" class="user-profile"></span>
+            <a href="index.html">Home</a>
+            <a href="/frontend/scan.html">Scan</a>
+            <!-- <button onclick="logout()" class="logout-btn">Logout</button> -->
+             <!-- <button id="nav-logout-action" onclick="login()">Login</button>
+            <button id="nav-logout-action" onclick="logout()">Logout</button> -->
+            <button id="loginBtn" class="nav-btn login-btn" onclick="goToLogin()">Login</button>
+            <button id="logoutBtn" class="nav-btn logout-btn" onclick="logout()">Logout</button>
+        </div>
+    </div>
+
+    <div class="container">
+
+        <!-- HERO SECTION -->
+        <div class="card">
+            <h2>Automated Web Application Security Scanner</h2>
+            <p>
+                A powerful tool designed to identify common web vulnerabilities
+                based on OWASP Top 10 including XSS, SQL Injection, security misconfigurations, and more.
+            </p>
+
+            <button onclick="goToScan()">Start Security Scan 🚀</button>
+        </div>
+
+        <!-- FEATURES -->
+        <div class="card">
+            <h3>🔍 Features</h3>
+            <ul>
+                <li>✔ Automated Website Crawling</li>
+                <li>✔ XSS & SQL Injection Detection</li>
+                <li>✔ Security Headers Analysis</li>
+                <li>✔ Directory Discovery</li>
+                <li>✔ Detailed Vulnerability Reports</li>
+            </ul>
+        </div>
+
+        <!-- HOW IT WORKS -->
+        <div class="card">
+            <h3>⚙️ How It Works</h3>
+            <p>
+                Enter a target URL, and the scanner will crawl the application,
+                analyze endpoints, inject test payloads, and generate a detailed
+                security report with severity classification.
+            </p>
+        </div>
+
+        <!-- TECH STACK -->
+        <div class="card">
+            <h3>🧠 Tech Stack</h3>
+            <ul>
+                <li>Backend: Python (Flask)</li>
+                <li>Frontend: HTML, CSS, JavaScript</li>
+                <li>Scanning Engine: Custom Modules</li>
+            </ul>
+        </div>
+
+    </div>
+
+    <!-- FOOTER -->
+    <footer class="main-footer">
+        <div class="footer-content">
+            <div class="footer-brand">
+                <h4>WebSec<span>Scanner</span></h4>
+                <p>Advanced vulnerability detection for modern web architectures.</p>
+            </div>
+
+            <div class="footer-links">
+                <div class="link-group">
+                    <h5>Resources</h5>
+                    <a href="#">Documentation</a>
+                    <a href="#">OWASP Top 10</a>
+                </div>
+                <div class="link-group">
+                    <h5>Platform</h5>
+                    <a href="index.html">Home</a>
+                    <a href="scan.html">Start Scan</a>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>© 2026 WebSec Scanner | Built for Security Research & Learning</p>
+        </div>
+    </footer>
+
+</body>
+</html>

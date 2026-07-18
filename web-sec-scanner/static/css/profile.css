@@ -1,0 +1,206 @@
+/* 1. LAYOUT ARCHITECTURE */
+:root {
+    --header-h: 72px;
+    --green-accent: #15803d;
+    --green-tint: #f0fdf4;
+    --slate-900: #0f172a;
+    --slate-500: #64748b;
+    --slate-200: #e2e8f0;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+body {
+    background-color: #fafafa;
+    color: var(--slate-900);
+    padding-top: var(--header-h); /* Essential: Creates space for the fixed header */
+    line-height: 1.5;
+}
+
+/* 2. NAVIGATION FIX (Prevents content overlap) */
+.main-header {
+    height: var(--header-h);
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(255, 255, 255, 0.8);
+    backdrop-filter: blur(12px); /* Premium frosted glass effect */
+    border-bottom: 1px solid var(--slate-200);
+    z-index: 1000; /* Stays above all content */
+    display: flex;
+    align-items: center;
+}
+
+.navbar {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* 3. PROFILE CARD (Grid Layout for stability) */
+.container {
+    max-width: 800px;
+    margin: 3rem auto;
+    padding: 0 1.5rem;
+}
+
+.profile-card {
+    display: grid;
+    grid-template-columns: 120px 1fr; /* Fixed width for the picture column */
+    gap: 2rem;
+    align-items: center;
+    background: white;
+    padding: 2.5rem;
+    border-radius: 1rem;
+    border: 1px solid var(--slate-200);
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 2rem;
+}
+
+/* THE FIX: Rigid constraints for the profile picture */
+.profile-pic-wrapper {
+    width: 120px !important;
+    height: 120px !important;
+    border-radius: 50%;
+    overflow: hidden;
+    position: relative;
+    border: 4px solid var(--green-tint);
+    flex-shrink: 0;
+}
+
+.profile-pic-wrapper img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensures image fits without stretching */
+    display: block;
+}
+
+.profile-pic-wrapper .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 600;
+    opacity: 0;
+    transition: 0.2s;
+}
+
+.profile-pic-wrapper:hover .overlay {
+    opacity: 1;
+}
+
+/* 4. CONTENT BLOCKS */
+.card {
+    background: white;
+    padding: 2rem;
+    border-radius: 1rem;
+    border: 1px solid var(--slate-200);
+    margin-bottom: 1.5rem;
+}
+
+.card h3 {
+    font-size: 1.125rem;
+    font-weight: 700;
+    margin-bottom: 1.5rem;
+    color: var(--slate-900);
+}
+
+/* 5. FORM ELEMENTS */
+input[type="password"] {
+    width: 100%;
+    max-width: 400px;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--slate-200);
+    border-radius: 0.5rem;
+    background: #f8fafc;
+    margin-bottom: 1.25rem;
+    outline: none;
+    transition: 0.2s;
+}
+
+input[type="password"]:focus {
+    border-color: var(--green-accent);
+    background: white;
+    box-shadow: 0 0 0 4px var(--green-tint);
+}
+
+/* 6. BUTTONS (Refined) */
+button {
+    padding: 0.625rem 1.25rem;
+    font-weight: 600;
+    font-size: 0.875rem;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    transition: 0.2s;
+    border: 1px solid transparent;
+}
+
+button:not(.danger):not(.logout-btn) {
+    background: var(--slate-900);
+    color: white;
+}
+
+button:not(.danger):not(.logout-btn):hover {
+    background: var(--green-accent);
+}
+
+button.danger {
+    background: transparent;
+    color: #be123c;
+    border-color: #fecaca;
+}
+
+button.danger:hover {
+    background: #fff1f2;
+}
+
+/* THE LOGOUT BUTTON (ID Specific Override) */
+.logout-btn {
+    background: #f1f5f9 !important;
+    color: var(--slate-500) !important;
+    border: 1px solid var(--slate-200) !important;
+}
+
+.logout-btn:hover {
+    background: #fee2e2 !important;
+    color: #dc2626 !important;
+    border-color: #fecaca !important;
+}
+
+/* 7. ACTIVITY TABLE */
+.vuln-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    margin-top: 1rem;
+}
+
+.vuln-table th {
+    text-align: left;
+    padding: 0.75rem;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    color: var(--slate-500);
+    border-bottom: 2px solid #f1f5f9;
+}
+
+.vuln-table td {
+    padding: 1rem 0.75rem;
+    border-bottom: 1px solid #f8fafc;
+    font-size: 0.9rem;
+}

@@ -1,0 +1,118 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+</head>
+<body>
+    <input type="text" id="username">
+<input type="password" id="password">
+<button onclick="signup()">Signup</button>
+
+<script>
+function signup() {
+    fetch("http://127.0.0.1:5000/signup", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    })
+    .then(res => res.json())
+    .then(() => alert("User created!"));
+}
+</script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Account | WebSec Scanner</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/global.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-shield">🛡️</div>
+            <h1>WebSec<span>Scanner</span></h1>
+            <p>Create Account</p>
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Choose a unique name">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="Enter Password">
+        </div>
+
+        <div class="form-group">
+            <label>Confirm Password</label>
+            <input type="password" id="confirm_password" placeholder="Conform password">
+        </div>
+
+        <div class="action-area">
+            <button class="login-btn" onclick="signup()">Register Account</button>
+        </div>
+
+        <div class="auth-toggle">
+            Already have an account? <a href="login.html">Login</a>
+        </div>
+
+        <p class="footer-note">© 2026 WebSec Security Systems. All data encrypted.</p>
+    </div>
+
+    <script>
+        function signup() {
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirm_password").value;
+
+            // 1. Check for empty fields
+            if (!username || !password || !confirmPassword) {
+                alert("Please fill in all security fields.");
+                return;
+            }
+
+            // 2. Validate Password Match (Crucial for UX)
+            if (password !== confirmPassword) {
+                alert("Passwords do not match. Please verify both entries.");
+                return;
+            }
+
+            // 3. Send to Backend
+            fetch("http://127.0.0.1:5000/signup", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({
+                    username: username,
+                    password: password
+                })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    alert("Account successfully created!");
+                    window.location.href = "login.html";
+                })
+                .catch(err => {
+                    console.error("Signup error:", err);
+                    alert("Connection error. Is the Flask server running?");
+                });
+        }
+    </script>
+    <script src="../static/js/theme.js"></script>
+</body>
+
+</html>

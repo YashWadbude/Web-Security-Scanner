@@ -1,0 +1,40 @@
+/* --- HISTORY SPECIFIC STYLES --- */
+.history-list {
+    background: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.risk-bar-mini {
+    display: flex;
+    width: 80px;
+    height: 6px;
+    background: #f1f5f9;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.r-crit { background: #dc2626; }
+.r-med { background: #ca8a04; }
+
+.view-btn {
+    background: #f1f5f9;
+    color: #1e293b;
+    border: 1px solid #e2e8f0;
+    padding: 6px 15px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.view-btn:hover {
+    background: var(--green-pro);
+    color: white;
+    border-color: var(--green-pro);
+}
+
+small { color: #94a3b8; }
+code { font-size: 0.8rem; color: var(--green-pro); }

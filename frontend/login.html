@@ -1,0 +1,104 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+</head>
+<body>
+    <input type="text" id="username" placeholder="Username">
+<input type="password" id="password" placeholder="Password">
+<button onclick="login()">Login</button>
+
+<script>
+function login() {
+    fetch("http://127.0.0.1:5000/login", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({
+            username: document.getElementById("username").value,
+            password: document.getElementById("password").value
+        })
+    })
+    .then(res => res.json())
+    .then(data => {
+        localStorage.setItem("token", data.token);
+        window.location.href = "scan.html";
+    });
+}
+</script>
+</body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | WebSec Scanner</title>
+    <link rel="stylesheet" href="../static/css/login.css">
+    <link rel="stylesheet" href="../static/css/global.css">
+
+</head>
+
+<body>
+
+    <div class="login-container">
+        <div class="login-header">
+            <div class="logo-shield">🛡️</div>
+            <h1>WebSec<span>Scanner</span></h1>
+            <p>Access the security console</p>
+        </div>
+
+        <div class="form-group">
+            <label>Username</label>
+            <input type="text" id="username" placeholder="Enter your username">
+        </div>
+
+        <div class="form-group">
+            <label>Password</label>
+            <input type="password" id="password" placeholder="••••••••">
+        </div>
+
+        <button class="login-btn" onclick="login()">Sign In</button>
+
+        <div class="auth-toggle">
+            New user? <a href="signup.html">Create an account</a>
+        </div>
+
+        <p class="footer-note">© 2026 WebSec Security Systems. All rights reserved.</p>
+    </div>
+
+    <script>
+        function login() {
+            const user = document.getElementById("username").value;
+            const pass = document.getElementById("password").value;
+
+            if (!user || !pass) {
+                alert("Please enter credentials");
+                return;
+            }
+
+            fetch("http://127.0.0.1:5000/login", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ username: user, password: pass })
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.token) {
+                        localStorage.setItem("token", data.token);
+                        window.location.href = "index.html";
+                    } else {
+                        alert("Invalid Credentials");
+                    }
+                })
+                .catch(err => console.error("Login Error:", err));
+        }
+    </script>
+    <script src="../static/js/theme.js"></script>
+</body>
+
+</html>

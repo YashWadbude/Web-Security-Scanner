@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Scan History | WebSec Scanner</title>
+    <link rel="stylesheet" href="../static/css/dashboard.css">
+    <link rel="stylesheet" href="../static/css/history.css">
+    <link rel="stylesheet" href="../static/css/global.css">
+    
+</head>
+
+<body>
+
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="nav-left">
+                <h1>WebSec<span>Scanner</span></h1>
+                <span class="report-tag">Audit History</span>
+            </div>
+            <div class="nav-right">
+                <a href="index.html" class="btn-outline">Home</a>
+                <a href="scan.html" class="btn-outline">New Scan</a>
+                <a href="dashboard.html" class="btn-outline">Dashboard</a>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="report-header">
+            <h2>Past Security Assessments</h2>
+            <p>Review and manage previous vulnerability reports</p>
+        </div>
+
+        <div class="history-list">
+            <table class="vuln-table">
+                <thead>
+                    <tr>
+                        <th>Date & Time</th>
+                        <th>Target URL</th>
+                        <th>Risk Profile</th>
+                        <th>Findings</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="history-items">
+                </tbody>
+            </table>
+
+            <div id="no-data" style="display:none; text-align:center; padding: 50px; color: #64748b;">
+                <p>No previous scan reports found.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = "http://127.0.0.1:5000";
+
+        document.addEventListener("DOMContentLoaded", () => {
+            const historyContainer = document.getElementById("history-items");
+            const noData = document.getElementById("no-data");
+
+            const token = localStorage.getItem("token");
+
+            if (!token) {
+                window.location.href = "login.html";
+                return;
+            }
+
+            fetch(`${API_BASE}/my-scans`, {
+                headers: {
+                    "Authorization": token
+                }
+            })
+                .then(res => res.json())
+                .then(history => {
+
+                    if (!history.length) {
+                        noData.style.display = "block";
+                        return;
+                    }
+
+                    history.forEach((scan, index) => {
+
+                        let total = scan.results.length;
+                        let critical = scan.results.filter(v => v.severity === "Critical").length;
+                        let medium = scan.results.filter(v => v.severity === "Medium").length;
+
+                        let row = `
+                <tr>
+                    <td><strong>${scan.date}</strong></td>
+                    <td><code>${scan.target}</code></td>
+                    <td>
+                        <div class="risk-bar-mini">
+                            <span class="r-crit" style="width:${total ? (critical / total) * 100 : 0}%"></span>
+                            <span class="r-med" style="width:${total ? (medium / total) * 100 : 0}%"></span>
+                        </div>
+                    </td>
+                    <td>${total} Vulns</td>
+                    <td>
+                        <button class="view-btn" onclick='viewReport(${JSON.stringify(scan)})'>View</button>
+                    </td>
+                </tr>
+            `;
+
+                        historyContainer.innerHTML += row;
+                    });
+
+                })
+                .catch(err => console.error(err));
+        });
+
+
+        // =========================
+        // 🔍 VIEW REPORT
+        // =========================
+        function viewReport(scan) {
+            localStorage.setItem("selectedScan", JSON.stringify(scan));
+            window.location.href = "dashboard.html";
+        }
+    </script>
+<script src="../static/js/theme.js"></script>
+</body>
+
+</html>
